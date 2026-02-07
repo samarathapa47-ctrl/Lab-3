@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BCA Description</title>
+</head>
+<body>
+
+<h2>BCA Description</h2>
+
+<button onclick="loadText()">Load BCA Info</button>
+
+<div id="content" style="margin-top:15px; border:1px solid #000; padding:10px;"></div>
+
+<script>
+function loadText() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "bca.txt", true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById("content").innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.send();
+}
+</script>
+
+</body>
+</html>

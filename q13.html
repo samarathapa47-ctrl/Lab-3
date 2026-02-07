@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Reset</title>
+    <style>
+        #result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Password Reset</h2>
+
+Enter Username:
+<input type="text" id="username" onkeyup="checkUsername()">
+
+<div id="result"></div>
+
+<script>
+function checkUsername() {
+    var username = document.getElementById("username").value;
+
+    if (username === "") {
+        document.getElementById("result").innerHTML = "";
+        return;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "q13.php?username=" + username, true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById("result").innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.send();
+}
+</script>
+
+</body>
+</html>

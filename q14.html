@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Country City Dropdown</title>
+</head>
+<body>
+
+<h2>Select Country</h2>
+
+<select onchange="loadCities(this.value)">
+    <option value="">-- Select Country --</option>
+    <option value="Nepal">Nepal</option>
+    <option value="India">India</option>
+    <option value="USA">USA</option>
+</select>
+
+<h2>Select City</h2>
+
+<select id="city">
+    <option>-- Select City --</option>
+</select>
+
+<script>
+function loadCities(country) {
+    if (country === "") {
+        document.getElementById("city").innerHTML = "<option>-- Select City --</option>";
+        return;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "q14.php?country=" + country, true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.getElementById("city").innerHTML = xhr.responseText;
+        }
+    };
+
+    xhr.send();
+}
+</script>
+
+</body>
+</html>

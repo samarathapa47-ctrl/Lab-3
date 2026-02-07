@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies / Shows using AJAX</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 6px;
+            text-align: center;
+        }
+        img {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Movies Data (AJAX)</h2>
+<button onclick="loadMovies()">Load Data</button>
+
+<br><br>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Poster</th>
+        <th>Year</th>
+        <th>Genre</th>
+        <th>Rating</th>
+        <th>Director</th>
+        <th>Country</th>
+        <th>Language</th>
+        <th>Actors</th>
+    </tr>
+    <tbody id="movieData"></tbody>
+</table>
+
+<script>
+function loadMovies() {
+    fetch("https://api.tvmaze.com/shows")
+        .then(response => response.json())
+        .then(data => {
+            let rows = "";
+
+            data.slice(0, 3).forEach(show => {
+                rows += `
+                    <tr>
+                        <td>${show.id}</td>
+                        <td>${show.name}</td>
+                        <td><img src="${show.image?.medium || ''}"></td>
+                        <td>${show.premiered || 'N/A'}</td>
+                        <td>${show.genres.join(", ")}</td>
+                        <td>${show.rating.average || 'N/A'}</td>
+                        <td>N/A</td>
+                        <td>${show.network?.country?.name || 'N/A'}</td>
+                        <td>${show.language}</td>
+                        <td>N/A</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("movieData").innerHTML = rows;
+        });
+}
+</script>
+
+</body>
+</html>
